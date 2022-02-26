@@ -1,19 +1,17 @@
-# mahdi hassanzadeh
-
-
-class node:
-    def __init__(self, id: int, x: int, y: int) -> None:
-        self.Id = (id,)
+class Node:
+    def __init__(self, id: int, x: int, y: int, z: int) -> None:
+        self.Id = id
         self.X = x
         self.Y = y
+        self.Z = z
         self.neighbor_nodes = []
 
     def __repr__(self) -> str:
-        return "<Node {}>".format(self.Id[0])
+        return "<Node {}>".format(self.Id)
 
     def __str__(self) -> str:
-        return "Node {} with X: {}, Y: {} has {} neighbor".format(
-            self.Id[0], self.X, self.Y, len(self.neighbor_nodes)
+        return "Node {} with X: {}, Y: {}, Z: {} has {} neighbor".format(
+            self.Id, self.X, self.Y, self.Z, len(self.neighbor_nodes)
         )
 
     def printNeighbors(self) -> str:

@@ -1,54 +1,73 @@
-# mahdi hassanzadeh
+from random import randrange, sample
+from Draw import Draw
+from Node import Node
+from SearchAlgorithm import SearchAlgorithm
 
-from random import choice, randrange, sample
-from copy import deepcopy
-import matplotlib.pyplot as plt
-from node import node
-
-
+#######################################################################################
 def createListOfNodes(numberOfNodes: int):
     listOfNodes = []
     for i in range(numberOfNodes):
-        listOfNodes.append(node(i, randrange(0, 100), randrange(0, 100)))
+        listOfNodes.append(
+            Node(i, randrange(0, 100), randrange(0, 100), randrange(0, 100))
+        )
     return listOfNodes
 
 
+#######################################################################################
 def randomNeighbor(listOfNodes: list, numberOfNeighbors: int):
     index = 0
     for node in listOfNodes:
 
-        copyListOfNodes = deepcopy(listOfNodes)
-        copyListOfNodes.pop(index)
+        sameNode = listOfNodes.pop(index)
 
-        for selectedNode in sample(copyListOfNodes, numberOfNeighbors):
+        for selectedNode in sample(listOfNodes, numberOfNeighbors):
             node.neighbor_nodes.append(selectedNode)
 
+        listOfNodes.insert(index, sameNode)
         index += 1
 
 
-def showPlot(listOfNodes: list):
-    for node in listOfNodes:
-        plt.plot(node.X, node.Y, "ro")
-        plt.annotate(node.Id[0], (node.X + 1, node.Y - 0.5))
-        arrowColor = "#" + "".join([choice("0123456789ABCDEF") for _ in range(6)])
-
-        for neighbor in node.neighbor_nodes:
-            plt.arrow(
-                node.X,
-                node.Y,
-                neighbor.X - node.X,
-                neighbor.Y - node.Y,
-                width=0.25,
-                length_includes_head=True,
-                head_width=1.5,
-                head_length=1,
-                color=arrowColor,
-            )
-
-    plt.show()
-
-
+#######################################################################################
 if __name__ == "__main__":
-    listOfNodes = createListOfNodes(20)
-    randomNeighbor(listOfNodes, 6)
-    showPlot(listOfNodes)
+
+    numberOfNodes = int(input("Please, enter the number of nodes that you want: "))
+    numberOfNeighbors = int(
+        input("Please, enter the number of neighbors that you want: ")
+    )
+    firstNode = int(input("Please, enter the first node number that you want: "))
+    secondNode = int(input("Please, enter the second node number that you want: "))
+
+    listOfNodes = createListOfNodes(numberOfNodes)
+    randomNeighbor(listOfNodes, numberOfNeighbors)
+    searchAlgorithm = SearchAlgorithm()
+    draw = Draw()
+
+    paths = searchAlgorithm.DFS(listOfNodes[firstNode], listOfNodes[secondNode])
+
+    directPath = []
+    indirectPaths = []
+    shortestPath = []
+
+    for path in paths:
+        if len(path) == 2:
+            directPath = path
+        else:
+            indirectPaths.append([len(path), path])
+
+    indirectPaths.sort(key=lambda x: x[0])
+
+    if directPath:
+        shortestPath = directPath
+    else:
+        shortestPath = indirectPaths[0]
+
+    print("Direct path: {}".format(directPath))
+    print("Indirect path: {}".format(indirectPaths[0]))
+    print("Paths: {}".format(paths))
+    print("Shortest paths: {}".format(shortestPath))
+
+    draw.showPlot(listOfNodes)
+    draw.showPlot3D(listOfNodes)
+
+    for path in paths:
+        draw.showPath(listOfNodes, path)
