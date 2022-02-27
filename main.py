@@ -58,12 +58,13 @@ if __name__ == "__main__":
 
     if directPath:
         shortestPath = directPath
-    else:
+    elif indirectPaths:
         shortestPath = indirectPaths[0]
+    
 
     print("Direct path: {}".format(directPath))
-    print("Indirect path: {}".format(indirectPaths[0]))
-    print("Paths: {}".format(paths))
+    print("One of indirect paths: {}".format(indirectPaths[0]))
+    print("Number of Paths: {}".format(len(paths)))
     print("Shortest paths: {}".format(shortestPath))
 
     draw.showPlot(listOfNodes)

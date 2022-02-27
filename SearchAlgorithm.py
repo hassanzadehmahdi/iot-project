@@ -6,7 +6,7 @@ class SearchAlgorithm:
     def __init__(self):
         self.visited = []
         self.currentPath = []
-        self.simplePaths = []
+        self.paths = []
 
     def DFS(self, firstNode: Node, secondNode: Node):
 
@@ -14,7 +14,7 @@ class SearchAlgorithm:
         self.currentPath.append(firstNode)
 
         if firstNode == secondNode:
-            self.simplePaths.append(deepcopy(self.currentPath))
+            self.paths.append(deepcopy(self.currentPath))
 
         else:
             for neighbour in firstNode.neighbor_nodes:
@@ -25,4 +25,4 @@ class SearchAlgorithm:
         self.visited.remove(firstNode)
 
         if len(self.visited) == 0:
-            return self.simplePaths
+            return self.paths
