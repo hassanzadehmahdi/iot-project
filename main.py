@@ -60,7 +60,6 @@ if __name__ == "__main__":
         shortestPath = directPath
     elif indirectPaths:
         shortestPath = indirectPaths[0]
-    
 
     print("Direct path: {}".format(directPath))
     print("One of indirect paths: {}".format(indirectPaths[0]))
