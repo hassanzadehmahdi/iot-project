@@ -4,8 +4,7 @@ from pylab import array
 
 class ConvertPicture:
     def __init__(self, picturePath: str) -> None:
-        self.picturePath = picturePath
-        self.imageArray = array(Image.open(self.picturePath))
+        self.imageArray = array(Image.open(picturePath))
 
     def toDictionry(self):
         imageDict = {}
