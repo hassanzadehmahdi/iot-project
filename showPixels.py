@@ -4,7 +4,7 @@ from random import sample
 from Node import Node
 from ConvertPicture import ConvertPicture
 
-
+#######################################################################################
 def createPixels(numberOfPixels: int):
     pixels = []
     index = 0
@@ -23,6 +23,7 @@ def createPixels(numberOfPixels: int):
     ):
         pixels[i].neighbor_nodes.append(pixels[i + 1])
 
+    # random selecetion
     index = 0
     for node in pixels:
 
@@ -37,6 +38,7 @@ def createPixels(numberOfPixels: int):
     return pixels
 
 
+#######################################################################################
 def DFS(pixel: Node, imageDictionry: dict, pixels):
 
     plt.ion()
@@ -71,6 +73,7 @@ def DFS(pixel: Node, imageDictionry: dict, pixels):
                 stack.append(node)
 
 
+#######################################################################################
 def BFS(pixel: Node, imageDictionry: dict, pixels):
 
     plt.ion()
@@ -106,16 +109,19 @@ def BFS(pixel: Node, imageDictionry: dict, pixels):
 
 if __name__ == "__main__":
     startTime = time.time()
+
     picture = ConvertPicture("./img/pic-16.jpg")
     imageDict = picture.toDictionry()
     pixels = createPixels(16)
+
     # DFS(pixels[0], imageDict, pixels)
     BFS(pixels[0], imageDict, pixels)
+
     elapsedTime = time.time() - startTime
     print(elapsedTime)
 
-    # for pixel in pixels:
-    #     plt.plot(pixel.X, pixel.Y, "o", color=pixel.color)
+    for pixel in pixels:
+        plt.plot(pixel.X, pixel.Y, "o", color=pixel.color)
 
-    # plt.title("Your picture")
-    # plt.show()
+    plt.title("Your picture")
+    plt.show()

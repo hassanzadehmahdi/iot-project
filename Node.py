@@ -5,6 +5,7 @@ class Node:
         self.Y = y
         self.Z = z
         self.neighbor_nodes = []
+        self.dvr_table = {}
         self.color = "#fff"
 
     def __repr__(self) -> str:

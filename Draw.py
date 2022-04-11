@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 import Annotation3D
 import Arrow3D
 
-# Annotation3D
-# Arrow3D
-
 
 class Draw:
     def __init__(self):
